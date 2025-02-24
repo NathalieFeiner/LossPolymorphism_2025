@@ -30,7 +30,7 @@ sf_use_s2(FALSE)
 europe_cropped <- st_crop(world, xmin = -10.00, xmax = 35.00, ymin = 35.00, ymax = 52.00)
 
 #read in distribution map of P. muralis from IUCN
-Pmur_dist <- st_read("ToSubmit/Pmuralis_distribution/data_0.shp")
+Pmur_dist <- st_read("Pmuralis_distribution/data_0.shp")
 #pdf("./Plots/DistributionMap.pdf", useDingbats = F)
 ggplot(data = europe_cropped) + 
   geom_sf(data = europe_cropped, fill= "white", color = "grey", size = 0.1) +
@@ -48,7 +48,7 @@ ggplot(data = europe_cropped) +
 # are too close to each other for plotting
 
 # Read in data set
-freq_combined <- read.csv("ToSubmit/DataS1_220_Populations.csv") 
+freq_combined <- read.csv("DataS1_220_Populations.csv") 
 
 # Calculate pairwise distances (in meters)
 dist_matrix <- distm(freq_combined[, c("Longitude", "Latitude")], fun = distHaversine)
@@ -97,7 +97,7 @@ ggplot() +
 
 # Average greenness exists for 48 locations (each with at least 5 males with greenness data and lineage assignment). 
 # Read in data set
-data <- read.csv("ToSubmit/DataS2_148_Populations_ForGreenness.csv") 
+data <- read.csv("DataS2_148_Populations_ForGreenness.csv") 
 Italy_cropped <- st_crop(europe_cropped, xmin = 7.57, xmax = 16.44, ymin = 39.78, ymax = 46.37)
 g <- st_transform(Italy_cropped, CRS("+proj=longlat +datum=WGS84 +ellps=WGS84"))
 
