@@ -95,7 +95,7 @@ ggplot() +
 
 ############### Fig. 2A - Greenness across Italy
 
-# Average greenness exists for 48 locations (each with at least 5 males with greenness data and lineage assignment). 
+# Average greenness exists for 148 locations (each with at least 5 males with greenness data and lineage assignment). 
 # Read in data set
 data <- read.csv("DataS2_148_Populations_ForGreenness.csv") 
 Italy_cropped <- st_crop(europe_cropped, xmin = 7.57, xmax = 16.44, ymin = 39.78, ymax = 46.37)
