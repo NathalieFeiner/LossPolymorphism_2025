@@ -12,18 +12,28 @@ library(gridExtra)
 library(dplyr)
 library(stringr)
 library(ggrepel)
-library(HardyWeinberg)
 library(tinytable)
 library(car)
 library(ggpubr)
 
 # set working directory
-#setwd("C:/Users/Tobias/Dropbox/Tobias Documents/Lund/Papers/WallLizardPapers/ColourPolymorphism_LossIntrogression/DataAnalysis")
 setwd("C:/Users/feiner/Dropbox/DataAnalysis")
 
 #Read in the data
 #Do yellow first
 GT_results_yellow_pheno <- read.csv("DataS4_Genotyping_BCO2_yellow.csv")
+
+#Technical Replicates
+GT_results_yellow_pheno %>%
+  mutate(match = ifelse(is.na(Genotype) & is.na(Yellow_TechRep), TRUE, Genotype == Yellow_TechRep)) %>%
+  summarise(
+    total = n(),
+    compared = sum(!is.na(match)),
+    identical = sum(match, na.rm = TRUE),
+    non_identical = compared - identical,
+    percent_identical = identical / compared * 100,
+    percent_non_identical = non_identical / compared * 100)
+GT_results_yellow_pheno <- GT_results_yellow_pheno[,-c(9)]
 
 GT_results_yellow_pheno <- GT_results_yellow_pheno %>% 
   mutate(Match = case_when(Genotype == "y/y" & grepl("yellow", morph) ~ "match", #condition 1
@@ -74,6 +84,18 @@ GT_results_yellow_pheno %>%
 
 # same for orange
 GT_results_orange_pheno <- read.csv("DataS5_Genotyping_SPR_orange.csv")
+
+#Technical Replicates
+GT_results_orange_pheno %>%
+  mutate(match = ifelse(is.na(Genotype) & is.na(Orange_TechRep), TRUE, Genotype == Orange_TechRep)) %>%
+  summarise(
+    total = n(),
+    compared = sum(!is.na(match)),
+    identical = sum(match, na.rm = TRUE),
+    non_identical = compared - identical,
+    percent_identical = identical / compared * 100,
+    percent_non_identical = non_identical / compared * 100)
+GT_results_orange_pheno <- GT_results_orange_pheno[,-c(9)]
 
 GT_results_orange_pheno <- GT_results_orange_pheno %>% 
   mutate(Match = case_when(
