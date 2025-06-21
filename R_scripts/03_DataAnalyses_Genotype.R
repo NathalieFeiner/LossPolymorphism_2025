@@ -21,7 +21,7 @@ setwd("C:/Users/feiner/Dropbox/DataAnalysis")
 
 #Read in the data
 #Do yellow first
-GT_results_yellow_pheno <- read.csv("DataS4_Genotyping_BCO2_yellow.csv")
+GT_results_yellow_pheno <- read.csv("Input_files/DataS4_Genotyping_BCO2_yellow.csv")
 
 #Technical Replicates
 GT_results_yellow_pheno %>%
@@ -83,7 +83,7 @@ GT_results_yellow_pheno %>%
             Green=mean(GreenResolved, na.rm = TRUE)) %>% tt()
 
 # same for orange
-GT_results_orange_pheno <- read.csv("DataS5_Genotyping_SPR_orange.csv")
+GT_results_orange_pheno <- read.csv("Input_files/DataS5_Genotyping_SPR_orange.csv")
 
 #Technical Replicates
 GT_results_orange_pheno %>%
@@ -195,7 +195,7 @@ GT_results_Y_sum <- GT_results_Y_sum %>% rename(Y = Freq)
 GT_results_O_sum <- subset(GT_results_orange_sum, Alleles == "O")
 GT_results_O_sum <- GT_results_O_sum %>% rename(O = Freq)
 
-Pheno_data <- read.csv("DataS3_141_Populations_ForPolymorphism.csv")
+Pheno_data <- read.csv("Input_files/DataS3_141_Populations_ForPolymorphism.csv")
 
 # We only need a few variables
 Pheno_data <- Pheno_data[,c(1,14,18)]
