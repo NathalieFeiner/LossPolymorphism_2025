@@ -147,3 +147,50 @@ pdf("./Plots/Ternary_byLineage_SA.pdf", height=5, useDingbats=T)
 grid.arrange(base_grob,zoom_grob, nrow=2, 
              heights=c(5,3))
 dev.off()
+
+################### Relationship between individual greenness and morph identity ##################
+
+# Test if yellow and orange individuals are less likely than white individuals to 
+# express nigriventris characters in populations where polymorphism and nigriventris co-occur
+
+
+# import data with 239 males from 14 populations with white, yellow and orange morphs confirmed + average greenness > 2
+ITA_sub <- read.csv("ToSubmit/DataS11_IndividualData_14_locations.csv")
+
+# check distribution
+hist(ITA_sub$GreenResolved)
+hist(ITA_sub$blackness)
+hist(ITA_sub$BlueResolved)
+
+# Kruskal-Wallis test for Greenness
+kruskal.test(GreenResolved ~ morph_2,
+             data=ITA_sub)
+
+# Also check results for other traits exaggerated in nigriventris - blackness and svl for example
+model_black <- lm(blackness ~ morph_2,
+                data=ITA_sub)
+summary(model_black)
+Anova(model_black)
+
+model_blue <- lm(BlueResolved ~ morph_2,
+              data=ITA_sub)
+
+Anova(model_blue)
+
+# Summary table with mean, SD, and sample size
+summary_table <- ITA_sub %>%
+  group_by(morph_2) %>%
+  summarise(
+    mean_green = mean(GreenResolved, na.rm = TRUE),
+    sd_green = sd(GreenResolved, na.rm = TRUE),
+    n_green = sum(!is.na(GreenResolved)),
+    mean_black = mean(blackness, na.rm = TRUE),
+    sd_black = sd(blackness, na.rm = TRUE),
+    n_black = sum(!is.na(blackness)),
+    mean_blue = mean(BlueResolved, na.rm = TRUE),
+    sd_blue = sd(BlueResolved, na.rm = TRUE),
+    n_blue = sum(!is.na(BlueResolved))
+  )
+
+# View result
+print(summary_table)
