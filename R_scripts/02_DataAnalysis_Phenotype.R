@@ -25,7 +25,7 @@ library(car)
 setwd("C:/Users/feiner/Dropbox/DataAnalysis")
 
 # Read in data set
-data <- read.csv("DataS3_141_Populations_ForPolymorphism.csv") 
+data <- read.csv("Input_files/DataS3_141_Populations_ForPolymorphism.csv") 
 
 str(data)
 data$abbpop <- as.factor(data$abbpop)
@@ -155,7 +155,7 @@ dev.off()
 
 
 # import data with 239 males from 14 populations with white, yellow and orange morphs confirmed + average greenness > 2
-ITA_sub <- read.csv("ToSubmit/DataS11_IndividualData_14_locations.csv")
+ITA_sub <- read.csv("Input_files/DataS11_IndividualData_14_locations.csv")
 
 # check distribution
 hist(ITA_sub$GreenResolved)
