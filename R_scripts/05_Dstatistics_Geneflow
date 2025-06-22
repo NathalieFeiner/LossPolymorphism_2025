@@ -1,0 +1,82 @@
+# Colour Polymorphism Manuscript
+# 5. Data analyses - genomics (patterns of gene flow)
+
+rm(list=ls())
+
+library(openxlsx)
+library(ggplot2)
+library(tidyr)
+library(gridExtra)
+library(dplyr)
+library(stringr)
+library(ggrepel)
+
+setwd("C:/Users/feiner/Dropbox/DataAnalysis")
+
+############### Patterns of gene flow
+
+# read in the results from Dinvestigate
+#Rab18
+Data <- read.table("Input_files/DataS8_Rab18_P1_P2_P3_localFstats__100_50.txt",as.is=T,header=T)
+Data_long <- Data %>% pivot_longer(cols = c(D, f_dM), names_to = "Statistic", values_to = "Value")
+gene_start <- 21354616  
+gene_end <- 21367745
+exons <- data.frame(
+  exon_start = c(21354616,21357152,21357300,21359212,21361001,21363716,21367165),
+  exon_end = c(21355824,21357218,21357418,21359284,21361062,21363771,21367745))
+p1 <- ggplot(Data_long, aes(x=windowStart, y=Value, color = Statistic)) +
+  geom_line() + xlim(c(21361181-50000,21361181+50000)) +
+  xlab(paste("Chromosome 12")) +
+  ylab(paste("D-statistic")) + 
+  geom_hline(data = Data_long %>% group_by(Statistic) %>% 
+               summarize(threshold = quantile(Value, 0.9975, na.rm = TRUE)), 
+             aes(yintercept = threshold, color = Statistic), 
+             linetype = "dashed") +
+  geom_segment(aes(x=gene_start, xend=gene_end, y=1.05, yend=1.05), color="black", lwd=1) +
+  geom_segment(data=exons, aes(x=exon_start, xend=exon_end, y=1.05, yend=1.05), color="black", lwd=10) + 
+  theme_bw() + ggtitle("Rab18")
+
+#BCO2
+Data <- read.table("Input_files/DataS9_BCO2_P1_P2_P3_localFstats__100_50.txt",as.is=T,header=T)
+Data_long <- Data %>% pivot_longer(cols = c(D, f_dM), names_to = "Statistic", values_to = "Value")
+gene_start <- 26165779  
+gene_end <- 26188197
+exons <- data.frame(
+  exon_start = c(26165779,26175083,26176676,26179731,26181132,26184487,26185863,26187111,26187895),
+  exon_end = c(26165863,26175287,26176887,26179846,26181234,26184618,26186023,26187278,26188197))
+p2 <- ggplot(Data_long, aes(x=windowStart, y=Value, color = Statistic)) +
+  geom_line() + xlim(c(26161882-50000,26161882+50000)) +
+  xlab(paste("Chromosome 15")) +
+  ylab(paste("D-statistic")) + 
+  geom_hline(data = Data_long %>% group_by(Statistic) %>% 
+               summarize(threshold = quantile(Value, 0.9975, na.rm = TRUE)), 
+               aes(yintercept = threshold, color = Statistic), 
+               linetype = "dashed") +
+  geom_vline(xintercept=26161882, color = "red") +
+  geom_segment(aes(x=gene_start, xend=gene_end, y=1.05, yend=1.05), color="black", lwd=1) +
+  geom_segment(data=exons, aes(x=exon_start, xend=exon_end, y=1.05, yend=1.05), color="black", lwd=10) + 
+  theme_bw() + ggtitle("BCO2")
+
+#SPR
+Data <- read.table("Input_files/DataS10_SPR_P1_P2_P3_localFstats__100_50.txt",as.is=T,header=T)
+Data_long <- Data %>% pivot_longer(cols = c(D, f_dM), names_to = "Statistic", values_to = "Value")
+gene_start <- 77997110  
+gene_end <- 77994329
+exons <- data.frame(
+  exon_start = c(77997110,77995004,77994519),
+  exon_end = c(77996786,77994714,77994329))
+p3 <- ggplot(Data_long, aes(x=windowStart, y=Value, color = Statistic)) +
+  geom_line() + xlim(c(77999982-50000,77999982+50000)) +
+  xlab(paste("Chromosome 9")) +
+  ylab(paste("D-statistic")) + 
+  geom_hline(data = Data_long %>% group_by(Statistic) %>% 
+               summarize(threshold = quantile(Value, 0.9975, na.rm = TRUE)), 
+             aes(yintercept = threshold, color = Statistic), 
+             linetype = "dashed") +
+  geom_vline(xintercept=77999982, color = "red") +
+  geom_segment(aes(x=gene_start, xend=gene_end, y=1.05, yend=1.05), color="black", lwd=1) +
+  geom_segment(data=exons, aes(x=exon_start, xend=exon_end, y=1.05, yend=1.05), color="black", lwd=10) + 
+  theme_bw() + ggtitle("SPR")
+pdf("./Plots/Dsuite.pdf", width=12, height=8, useDingbats=FALSE)
+grid.arrange(p1,p2,p3, ncol=1)
+dev.off()
