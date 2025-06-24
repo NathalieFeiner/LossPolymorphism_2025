@@ -1,0 +1,21 @@
+### This script uses the vcf-file from Feiner et al., 2024, Science Advances, as input file.
+### It calculates patterns of D-statistics surrounding the morph-determining loci and a locus (RAB18) known to introgress from the Central Italy lineage into the Southern Alps lineage
+
+# Using Dsuite and bcftools/1.20
+
+# First extract the respective chromosomes
+# Chr. 12 for RAB18
+bcftools filter GATK_all_SNP_final.vcf.gz -r CM014754.1 > RAB18_Chr12.vcf 
+# Chr. 15 for BCO2
+bcftools filter GATK_all_SNP_final.vcf.gz -r CM014757.1 > BCO2_Chr15.vcf 
+# Chr. 9 for SPR
+bcftools filter GATK_all_SNP_final.vcf.gz -r CM014751.1 > SPR_Chr9.vcf 
+
+# Use as input for Dinvestigate (from the Dsuite); note that the SETs differ because only homozygous white alleles are retained for the color loci.
+# RAB18
+./Dsuite/Build/Dsuite Dinvestigate -w 100,50 RAB18_Chr12.vcf SETS_RAB18.txt trios.txt
+# BCO2
+./Dsuite/Build/Dsuite Dinvestigate -w 100,50 BCO2_Chr15.vcf SETS_BCO2.txt trios.txt
+# SPR
+./Dsuite/Build/Dsuite Dinvestigate -w 100,50 SPR_Chr9.vcf SETS_SPR.txt trios.txt
+
