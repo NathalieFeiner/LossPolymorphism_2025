@@ -1,0 +1,14 @@
+### This script uses the vcf-file from Feiner et al., 2024, Science Advances, as input file.
+### It calculates patterns of LD decay surrounding the morph-determining loci
+
+# Using PLINK v1.90b7.4
+
+# for the yellow locus (BCO2)
+plink --allow-extra-chr --ld-snp CM014757.1:26161882 --ld-window 9999999 --ld-window-kb 100 --ld-window-r2 0 /
+--out DataS6_LD_from_BCO2_100kb --r2 --set-missing-var-ids @:# --vcf GATK_all_SNP_final.vcf
+
+# for the orange locus (SPR)
+plink --allow-extra-chr --ld-snp CM014751.1:77999982 --ld-window 9999999 --ld-window-kb 100 --ld-window-r2 0 /
+--out DataS7_LD_from_SPR_100kb --r2 --set-missing-var-ids @:# --vcf GATK_all_SNP_final.vcf
+
+# the resulting output is plotted with the R_script '04_LD_decay_permutations.R' and shown in Fig. S2.
