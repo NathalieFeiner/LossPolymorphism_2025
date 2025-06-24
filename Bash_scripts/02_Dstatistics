@@ -19,3 +19,4 @@ bcftools filter GATK_all_SNP_final.vcf.gz -r CM014751.1 > SPR_Chr9.vcf
 # SPR
 ./Dsuite/Build/Dsuite Dinvestigate -w 100,50 SPR_Chr9.vcf SETS_SPR.txt trios.txt
 
+# the resulting output is plotted with the R_script '05_Dstatistics_Geneflow.R' and shown in Fig. S1.
