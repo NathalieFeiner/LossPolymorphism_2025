@@ -19,4 +19,7 @@ bcftools filter GATK_all_SNP_final.vcf.gz -r CM014751.1 > SPR_Chr9.vcf
 # SPR
 ./Dsuite/Build/Dsuite Dinvestigate -w 100,50 SPR_Chr9.vcf SETS_SPR.txt trios.txt
 
+# trios.txt contained the following line to specify which configuration to test:
+# P1  P2  P3
+
 # the resulting output is plotted with the R_script '05_Dstatistics_Geneflow.R' and shown in Fig. S1.
