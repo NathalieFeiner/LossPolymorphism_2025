@@ -118,8 +118,7 @@ Krig = gstat::idw(Green~1,data,newdata=grd, idp=4.0)
 # Convert to raster object the interpolation and clip it to the Italian raster
 r       <- raster(Krig)
 r.m     <- mask(r,g)
-cbp1 <- c("#996633","#996633","#666600","#669900","#33CC00","#339900","#336600")# Manual set of the palette.WHAT IS IMPORTANT HERE IS TO BE SURE THAT IF WE CHANGE ANY OF THE PALETTES HERE WE ALSO NEED TO CHANGE THEM IN THE BARPLOT FOR THE ADMIXTURE
- #cbp1 <- c("#4d3e1d","#675326","#816830","#66CC33","#339900","#336600")
+cbp1 <- c("#271F17","#3D3224","#50412F","#5D4C37","#3F693A","#3D7D36","#48A33E","#56C44A","#7ED775")# Manual set of the palette.WHAT IS IMPORTANT HERE IS TO BE SURE THAT IF WE CHANGE ANY OF THE PALETTES HERE WE ALSO NEED TO CHANGE THEM IN THE BARPLOT FOR THE ADMIXTURE
 crs(r.m) <- "+proj=longlat +datum=WGS84 +ellps=WGS84"
  
  # Plot
