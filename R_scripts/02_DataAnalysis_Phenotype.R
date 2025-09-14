@@ -125,7 +125,7 @@ data_SA <- subset(data, lineage2 =="SA")
 base <- ggtern(data = data_IT, aes(freqY_new, freqW, freqO_new)) +
   geom_mask() + 
   geom_point(position= position_jitter_tern(x=0.005, y=0.005, z=0.005), alpha = 0.7, size = 4, shape=16, aes(color=Green)) + 
-  scale_color_gradientn(colors = c("#996633","#996633","#666600","#669900","#33CC00","#339900","#336600")) +
+  scale_color_gradientn(colors = c("#271F17","#3D3224","#50412F","#5D4C37","#3F693A","#3D7D36","#48A33E","#56C44A","#7ED775")) +
   xlab("Yellow")+ylab("White")+zlab("Orange") +
   theme_rgbw() + theme_light() + theme(legend.position="none")  + theme_showgrid()
 zoom <- base + theme_zoom_T(0.2) + theme_hidegrid_major()
@@ -137,7 +137,7 @@ dev.off()
 base <- ggtern(data = data_SA, aes(freqY_new, freqW, freqO_new)) +
   geom_mask() + 
   geom_point(position= position_jitter_tern(x=0.005, y=0.005, z=0.005), alpha = 0.7, size = 4, shape=16, aes(color=Green)) + 
-  scale_color_gradientn(colors = c("#996633","#996633","#666600","#669900","#33CC00","#339900","#336600")) +
+  scale_color_gradientn(colors = c(""#271F17","#3D3224","#50412F","#5D4C37","#3F693A","#3D7D36","#48A33E","#56C44A","#7ED775")) +
   xlab("Yellow")+ylab("White")+zlab("Orange") +
   theme_rgbw() + theme_light() + theme(legend.position="none")
 zoom <- base + theme_zoom_T(0.2) + theme_hidegrid_major()
